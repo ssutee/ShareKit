@@ -32,7 +32,11 @@
 
 @end
 
+
 @implementation SHKInstagram
+
+@synthesize dic = _dic;
+@synthesize didSend = _didSend;
 
 - (void)dealloc {
     
@@ -135,7 +139,7 @@
 		self.dic = [UIDocumentInteractionController interactionControllerWithURL:url];
 		self.dic.UTI = @"com.instagram.photo";
 		NSString *captionString = [NSString stringWithFormat:@"%@%@%@", ([item.title length] ? item.title : @""), ([item.title length] && [item.tags count] ? @" " : @""), [self tagStringJoinedBy:@" " allowedCharacters:[NSCharacterSet alphanumericCharacterSet] tagPrefix:@"#"]];
-		self.dic.annotation = @{@"InstagramCaption" : captionString};
+		self.dic.annotation = [NSDictionary dictionaryWithObject:captionString forKey:@"InstagramCaption"];
 		self.dic.delegate = self;
 		UIView* bestView = self.view;
 		if(bestView.window == nil){
